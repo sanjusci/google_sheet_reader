@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <p>
+        Below is the today's work summary of LogRhythm SOAR Services Team:<br />
+        <br />
+        <div class="top-pad">
+          <table>
+              <colgroup><col width="189"><col width="448"><col width="382"><col width="96"></colgroup>
+              <tbody>
+                <tr style="height:21px">
+                {% for fn in header %}
+                    <td class="td-header">{{ fn }}</td>
+                {% endfor %}
+                </tr>
+                {% for rec in records %}
+                    <tr style="height:21px">
+                        {% for v in rec %}
+                            <td class="td-data">
+                            {{ v }}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+      </div>
+    </p>
+{% endblock %}

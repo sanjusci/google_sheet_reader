@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <style type="text/css">
+        span.bold {
+            font-weight: bold;
+        }
+        .im {
+            color: rgb(0, 0, 0);
+        }
+        table.noborder {
+            border: 0px;
+            padding: 0px;
+        }
+
+        th {
+            text-align: left;
+        }
+        table {
+            display: table;
+            border-collapse: collapse;
+            border-spacing: 0px;
+            border-color: grey;
+            table-layout: fixed;
+            font-size: 10pt;
+            font-family: arial,sans,sans-serif;
+            width: 0px;
+            border: none;
+        }
+
+        .td-header {
+            overflow: hidden;
+            padding: 2px 3px;
+            vertical-align: bottom;
+            background-color: rgb(79, 129, 189);
+            font-family: Arial;
+            font-size: 9pt;
+            font-weight: bold;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            border: 1px solid rgb(204, 204, 204);
+        }
+
+        .td-data {
+            overflow: hidden;
+            padding: 2px 3px;
+            vertical-align: bottom;
+            border: 1px solid rgb(204, 204, 204)
+        }
+    </style>
+</head>
+<body>
+Hi {{ name }},
+{% block content %}
+{% endblock %}
+<p>
+    -- <br/>
+    {{ closure| d('Thank You') }} <br/>
+    {{ closure_name }}
+</p>
+<p>
+</p>
+</body>
+</html>
