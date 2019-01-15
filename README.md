@@ -36,5 +36,5 @@ $ pip3 install -r requirements.txt
 4. Then run reader.py as  
 
 ```sh
-$ python3  gs_file_reader/reader.py  --sh 1hmTIAOB_5P_1Fn6yi1YteZLr_vP04mgy_6v-KOqKHUI --to  "user1@gmail.com, user2@gmail.com"
+$ python3  gs_file_reader/reader.py  --sh 1hmTIAOB_5P_1Fn6yi1YteZLr_vP04mgy_6v-KOqKHUI --to  "user1@gmail.com, user2@gmail.com" --cc "user3@gmail.com, user4@gmail.com" --r Sheet1
 ```
