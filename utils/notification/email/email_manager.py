@@ -17,7 +17,7 @@ class EmailManager(NotificationManager):
     EMAIL_REGX = re.compile('([\w\&\-\.\']+@(\w[\w\-]+\.)+[\w\-]+)')
     HTM_REGEX = re.compile('(^<!DOCTYPE html.*?>)')
 
-    def __init__(self, templatedir='templates/email', *args, **kwargs):
+    def __init__(self, templatedir='../templates/email', *args, **kwargs):
         """
         Function __init__
         This function is used to initialize variables.
@@ -30,7 +30,8 @@ class EmailManager(NotificationManager):
         if os.path.isdir(templatedir):
             self.templatedir = templatedir
         else:
-            self.templatedir = os.path.join(os.path.abspath(os.path.dirname(__file__)), templatedir)
+            self.templatedir = os.path.abspath(templatedir)
+            # self.templatedir = os.path.join(os.path.abspath(os.path.dirname(__file__)), templatedir)
         self.env = Environment(loader=FileSystemLoader(self.templatedir))
 
     def _mail_render(self, data, template):

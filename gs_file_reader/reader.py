@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 __author__ = "Sanju Sci"
 __email__ = "sanju.sci9@gmail.com"
@@ -24,12 +25,24 @@ class GoogleFileReader(object):
 
     def __init__(self):
         if not self.service:
-            store = file.Storage('config/token.json')
-            creds = store.get()
-            if not creds or creds.invalid:
-                flow = client.flow_from_clientsecrets('config/credentials.json', SCOPES)
-                creds = tools.run_flow(flow, store)
-            self.service = build('sheets', 'v4', http=creds.authorize(Http()))
+            token_path = os.path.abspath("../config/token.pickle")
+            credentials_path = os.path.abspath("../config/credentials.json")
+            if os.path.exists(token_path):
+                with open(token_path, 'rb') as token:
+                    creds = pickle.load(token)
+            # If there are no (valid) credentials available, let the user log in.
+            if not creds or not creds.valid:
+                if creds and creds.expired and creds.refresh_token:
+                    creds.refresh(Request())
+                else:
+                    flow = InstalledAppFlow.from_client_secrets_file(
+                        credentials_path, SCOPES)
+                    creds = flow.run_local_server()
+                # Save the credentials for the next run
+                with open(token_path, 'wb') as token:
+                    pickle.dump(creds, token)
+
+            self.service = build('sheets', 'v4', credentials=creds)
 
     def get_google_sheet(self, spreadsheetid, range):
         """
@@ -88,7 +101,7 @@ def run(sheet_id, range='Sheet1', to='', cc=''):
 
 if __name__ == '__main__':
 
-    parser = argparse.ArgumentParser(description=__name__.__doc__)
+    parser = argparse.ArgumentParser(description=__name__.__doc__, conflict_handler='resolve')
     parser.add_argument("--sheetid", "-sh", help="show sheet id", required=True)
     parser.add_argument("--range", "-r", help="show range", required=False)
     parser.add_argument("--to_email", "-to", help="show to email", required=True)
