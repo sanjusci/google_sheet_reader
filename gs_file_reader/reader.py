@@ -25,8 +25,10 @@ class GoogleFileReader(object):
 
     def __init__(self):
         if not self.service:
-            token_path = os.path.abspath("../config/token.pickle")
-            credentials_path = os.path.abspath("../config/credentials.json")
+            creds = None
+            token_path = os.path.abspath("config/token.pickle")
+            credentials_path = os.path.abspath("config/credentials.json")
+            print(credentials_path)
             if os.path.exists(token_path):
                 with open(token_path, 'rb') as token:
                     creds = pickle.load(token)
